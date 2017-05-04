@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+
+{% block title %}
+{% endblock %}
+
+<h3>Get your relay email!</h3>
+
+{% block content %}
+    <div class="container">
+        {% if email %}
+            {% bootstrap_alert 'Valid relay email: '|add:email alert_type='success' %}
+        {% endif %}
+        
+        {% if pemail %}
+            {% bootstrap_alert 'Valid personal email: '|add:pemail alert_type='success' %}
+        {% endif %}
+  
+        {% if errmsg %}
+            {% bootstrap_alert errmsg alert_type='danger' %}
+        {% endif %}
+
+
+		<!--  
+		<form action="{% url 'reviews:homenextrelay' %}" method="post" class="form">
+		<form action="{% url 'reviews:accountsignup' %}" method="post" class="form">
+		-->
+
+		<form action="{% url 'account_signup' %}" method="post" class="form">
+ 
+            {% csrf_token %}
+            <BR>
+            <BR>
+            <BR>
+            <center>
+                <div class=signuponepage>
+                    <div class=sign-up>
+                        <div class=signup-box>
+                            <div class="form-element email-address">
+                                
+                                
+                                <label id="email-address-label">
+                                    <strong>
+                                        Create a password (it must be 6 characters long)
+                                    </strong>
+                                    <input type="hidden" name="username" value="{{ pemail }}">
+                                    <input type="hidden" name="email" value="{{ email }}@everydayrelay.com">
+                                    <input type="text" maxlength="19" name="password1" value="" placeholder="Password">
+                                    <input type="text" maxlength="19" name="password2" value="" placeholder="Password (again)">
+                                </label>
+
+                            </div>
+                            <div class="form-element nextstep-button">
+                                {% buttons %}
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        Finish {% bootstrap_icon "chevron-right" %}
+                                    </button>
+                                {% endbuttons %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </center>
+        </form>
+
+
+    </div>
+{% endblock %}

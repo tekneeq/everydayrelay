@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block title %}
+<h2>Account Page for {{ username }}</h2>
+{% endblock %}
+
+{% block content %}
+<h4> You are using {{ecount}} out of {{ elimit }} emails. You are allowed to have {{ rlimit }} relays per email
+    <form action="{% url 'reviews:pay' %}" method="post">
+        {% csrf_token %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">
+                {% bootstrap_icon "star" %} Get more!
+            </button>
+        {% endbuttons %}
+    </form>
+</h4>
+
+{% if errmsg %}
+    <h6> {{ errmsg }} </h6>
+{% endif %}
+
+{% if addrs %}
+    <div class="row">
+    {% for addr, relay_addrs in addrs.items %}
+        <div class="col-xs-6 col-lg-4">
+            <h4>{{ addr.addr }} ( {{ relay_addrs|length }} out of {{rlimit}} )</h4>
+            
+            {% for relay_addr in relay_addrs %}
+                <h6>{{ relay_addr.relay_email }}</h6>
+            {% endfor %}
+
+            <p>{{ addr.pub_date }}</p>
+            <form action="{% url 'reviews:delete_acc_email' %}" method="post">
+                <input type="hidden" name="addr_to_delete" value="{{ addr.addr }}" />
+                {% csrf_token %}
+                {% buttons %}
+                    <button type="submit" class="btn btn-primary">
+                        {% bootstrap_icon "star" %} Delete
+                    </button>
+                {% endbuttons %}
+            </form>
+        </div>
+    {% endfor %}
+    </div>
+{% else %}
+    No relay email associated with this account
+{% endif %}
+{% endblock %}
+

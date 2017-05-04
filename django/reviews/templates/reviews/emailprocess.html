@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block title %}
+How Does it work? 
+{% endblock %}
+
+{% block content %}
+    {% if to_print %}
+        {% for ele in to_print %}
+            <h6> {{ ele }}</h6>
+        {% endfor %} 
+    {% endif %}
+{% endblock %}
+

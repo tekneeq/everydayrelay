@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+
+{% block title %}
+{% endblock %}
+
+<h3>Get your relay email!</h3>
+
+{% block content %}
+    <div class="container">
+        {% if errmsg %}
+            {% bootstrap_alert errmsg alert_type='danger' %}
+        {% endif %}
+ 
+        <form action="{% url 'reviews:get_relay_email' %}" method="post" class="form">
+            {% csrf_token %}
+            <BR>
+            <BR>
+            <BR>
+            <center>
+                <div class=signuponepage>
+                    <h3> Hi, need an email?</h3>
+                    <div class=sign-up>
+                        <div class=signup-box>
+                            <div class="form-element email-address">
+                                <label id="email-address-label">
+                                    <strong>
+                                        Choose your new address
+                                    </strong>
+                                    <input type="text" maxlength="19" autocomplete="off" name="everydayAddress" id="everydayAddress" value="" spellcheck="false">
+                                    <span class="atgmail">@everydayrelay.com</span>
+                                </label>
+
+                            </div>
+                            <div class="form-element nextstep-button">
+                                {% buttons %}
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        Next Step {% bootstrap_icon "chevron-right" %}
+                                    </button>
+                                {% endbuttons %}
+                            </div>
+                        </div>
+                    </div>
+                    <BR>
+                    <p>Already have an account? Then please <a href="/accounts/login">sign in</a>.</p>
+                </div>
+            </center>
+        </form>
+    </div>
+{% endblock %}
+

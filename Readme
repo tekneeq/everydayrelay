@@ -1,5 +1,8 @@
-Project tracking at:
-https://tree.taiga.io/project/tekneeq-everydayrelay/backlog
+1. redis check
+- python redis-test/check-redis.py
 
-Source code for website:
-everydayrelay.com
+2. email check
+- python redis-test/check-email.py
+
+
+daemon logs in /home/logs/

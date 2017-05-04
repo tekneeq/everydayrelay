@@ -1,0 +1,3 @@
+sqlite3 commands
+.tables   # shows a list of tables
+.schema <table name>  # shows column names

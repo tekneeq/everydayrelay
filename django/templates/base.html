@@ -1,0 +1,135 @@
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>everydayrelay | We Relay Emails For You!</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Want a new email address but keep your email client? Map your email address to our relay email address. Any emails sent to your relay address will be relayed to your original email!">
+        <meta name="author" content="">
+
+        <link rel="shortcut icon" href="{% static 'reviews/favicon.ico' %}">
+        <link rel="stylesheet" href="{% static 'reviews/reviews.css' %}">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+        <!-- Google stuff-->
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-71841195-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+
+        <!-- Facebook stuff-->
+        <script>
+            window.fbAsyncInit = function() {
+                FB.init({
+                    appId      : '867517520061637',
+                    xfbml      : true,
+                    version    : 'v2.5'
+                });
+            };
+
+            (function(d, s, id){
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.5&appId=867517520061637";
+                fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
+        {% block bootstrap3_content %}
+        <div class="container">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="{% url 'reviews:home' %}">everydayrelay </a>
+                    </div> <!-- navbar-header--!>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div id="bs-example-navbar-collapse-1" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li><a href="{% url 'reviews:faq' %}">How It Works</a></li>
+                            <li><a href="{% url 'reviews:news' %}">News</a></li>
+                        </ul>
+
+                        <!-- code for the right side of the navbar -->
+    
+                        <ul class="nav navbar-nav navbar-right">
+                            {% if user.is_authenticated %}
+                            	
+                                <li><a href="{% url 'reviews:user_review_list' user.username %}">Hello {{ user.username }}</a></li>
+                                <!--
+                                <li><a href="{% url 'reviews:user_review_list' user.username %}">My Account</a></li>
+                                -->
+                                <li><a href="/accounts/logout">Logout</a></li>
+                            {% else %}
+                                <!--
+                                <li><a href="/accounts/login">Login</a></li>
+                                <li><a href="/accounts/signup">Register</a></li>
+                                -->
+                            {% endif %}
+
+                        </ul>
+                    </div> <!-- navbar-collapse--!>
+
+                </div><!-- /.container-fluid -->
+            </nav>
+    
+
+            <h3>{% block title %}Relaying emails for you!{% endblock %}</h3>
+
+            {% bootstrap_messages %}
+
+            {% block content %}(no content){% endblock %}
+
+
+        </div>
+        {% endblock %}
+
+        <footer class="footer">
+            <div class="container">
+                <ul class="clfooter">
+                    <li> &copy; 2016 <a href="http://www.everydayrelay.com">everydayrelay</a></li> 
+                    <li>
+                        <div class="fb-like" data-href="https://www.facebook.com/everydayrelay" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+                    </li>
+                    <!--
+                    <li>
+                        <script src="https://apis.google.com/js/platform.js"></script>
+                        <div class="g-ytsubscribe" data-channelid="UCt7Qb8JdtlG_pO1Pr4w2jrQ" data-layout="default" data-count="default"></div>
+                    </li>
+                    --!>
+                </ul>
+            </div>
+        </footer>
+    </body>
+</html>

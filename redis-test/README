@@ -1,0 +1,8 @@
+daemon no, run daemon as me, /home/public/run-redis.sh, /home/public
+
+
+for some reaosn django can see it but not when i run it from here as local host
+
+to get host name, tail -f redis.log and insert data from website and see the host name
+
+10.2.48.99

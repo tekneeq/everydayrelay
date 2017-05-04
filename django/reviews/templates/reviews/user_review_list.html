@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block title %}
+<h2>Account Page for {{ username }}</h2>
+{% endblock %}
+
+{% block content %}
+    {% if elimit == '1' %}
+        <h5> Account type: Basic,  Credits: {{ ucredit }}</h5>
+        <h5> You are using {{ecount}} out of {{ elimit }} emails ({{ rlimit }} relay addresses per email)</h5>
+    {% else %}
+        <h5> Account type: Premium, Credits: {{ ucredit }}</h5>
+        <h5> You are using {{ecount}} out of {{ elimit }} emails ({{ rlimit }} relay addresses per email)</h5>
+    {% endif %}
+    <form action="{% url 'reviews:pay' %}" method="post">
+        {% csrf_token %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary btn-sm">
+                Get more credits {% bootstrap_icon "chevron-right" %}
+            </button>
+        {% endbuttons %}
+    </form>
+    {% bootstrap_alert infomsg alert_type='info' %}
+
+    {% if errmsg %}
+        {% bootstrap_alert errmsg alert_type='danger' %}
+    {% endif %}
+
+
+    <div class="container">
+    {% if addrs %}
+        <div class="row">
+        {% for addr, relay_addrs in addrs.items %}
+            <div class="col-xs-12 col-lg-4">
+                <h4>{{ addr.addr }}:</h4>
+                <!--
+                <h4>Email #{{ forloop.counter }} ({{ relay_addrs|length }} out of {{rlimit}} relay add)</h4>
+                --!>
+                <p> Emails sent to: </p>
+                <ul>
+                {% for relay_addr in relay_addrs %}
+                    <li>{{ relay_addr.relay_email }}</li>
+                {% endfor %}
+                </ul>
+                <p> will be relayed to: </p>
+                <ul>
+                <li>{{ addr.addr }}</li>
+                </ul>
+
+                <form action="{% url 'reviews:delete_acc_email' %}" method="post">
+                    <input type="hidden" name="addr_to_delete" value="{{ addr.addr }}" />
+                    {% csrf_token %}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            Delete {% bootstrap_icon "chevron-right" %}
+                        </button>
+                    {% endbuttons %}
+                </form>
+        </div>
+    {% endfor %}
+    </div>
+    {% else %}
+        No relay email associated with this account. Please visit <a href="{% url 'reviews:home' %}">home</a> to get a relay email!
+    {% endif %}
+    </div>
+{% endblock %}
+

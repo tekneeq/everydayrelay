@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load bootstrap3 %}
+
+{% block title %}
+<h4>Get more credits to relay more emails!! You have {{ ucredit }} credits right now!</h4>
+{% endblock %}
+
+{% block content %}
+
+{% if token %}
+    <h6>Successfully charged!</h6>
+{% endif %}
+
+{% if elimit == '1' %}
+<h5> - Your account type is Basic. Upgrade to Preminum for $1.99! You can have up to 40 emails with 20 relay emails per each email
+    <form action="" method="POST"> {% csrf_token %}
+        <input type="hidden" name="amount" value="199" />
+        <script
+            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="pk_live_yZwhV7U2PRFOs2qixYTZHziX"
+            data-amount="199"
+            data-name="Upgrade to Premium"
+            data-description="($1.99)"
+            data-image="{% static 'reviews/128x128.png' %}"
+            data-locale="auto">
+        </script>
+    </form>
+</h5>
+{% else %}
+<h5> - Your account type is Premium </h5>
+{% endif %}
+
+<h4> - Buy 300 credits for $1.29
+    <form action="" method="POST"> {% csrf_token %}
+        <input type="hidden" name="amount" value="129" />
+        <script
+            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="pk_live_yZwhV7U2PRFOs2qixYTZHziX"
+            data-amount="129"
+            data-name="Get 300 credits"
+            data-description="($1.29)"
+            data-image="{% static 'reviews/128x128.png' %}"
+            data-locale="auto">
+        </script>
+    </form>
+</h4>
+
+<h4> - Buy 2000 credits for $5
+    <form action="" method="POST"> {% csrf_token %}
+        <input type="hidden" name="amount" value="500" />
+        <script
+            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="pk_live_yZwhV7U2PRFOs2qixYTZHziX"
+            data-amount="500"
+            data-name="Get 2000 credits"
+            data-description="($5.00)"
+            data-image="{% static 'reviews/128x128.png' %}"
+            data-locale="auto">
+        </script>
+    </form>
+</h4>
+
+<h4> - Buy 5000 credits for $10
+    <form action="" method="POST"> {% csrf_token %}
+        <input type="hidden" name="amount" value="1000" />
+        <script
+            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="pk_live_yZwhV7U2PRFOs2qixYTZHziX"
+            data-amount="1000"
+            data-name="Get 5000 credits"
+            data-description="($10.00)"
+            data-image="{% static 'reviews/128x128.png' %}"
+            data-locale="auto">
+        </script>
+    </form>
+</h4>
+
+<h4> - Buy 15000 credits for $20
+    <form action="" method="POST"> {% csrf_token %}
+        <input type="hidden" name="amount" value="2000" />
+        <script
+            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key="pk_live_yZwhV7U2PRFOs2qixYTZHziX"
+            data-amount="2000"
+            data-name="Get 15000 credits"
+            data-description="($20.00)"
+            data-image="{% static 'reviews/128x128.png' %}"
+            data-locale="auto">
+        </script>
+    </form>
+</h4>
+{% endblock %}
+

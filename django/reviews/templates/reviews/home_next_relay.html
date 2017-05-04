@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+
+{% block title %}
+{% endblock %}
+
+<h3>Get your relay email!</h3>
+
+{% block content %}
+    <div class="container">
+        {% if errmsg %}
+            {% bootstrap_alert errmsg alert_type='danger' %}
+            
+        {% elif email %}
+        	{% bootstrap_alert 'Valid email: '|add:email alert_type='success' %}
+        {% endif %}
+ 
+        
+        <!--  
+		<form action="{% url 'reviews:accountsignup' %}" method="post" class="form">
+		<input type="text" name="personalAddress" id="everyPass" value="" placeholder="Your current email address">
+		-->
+		
+        <form action="{% url 'reviews:get_relay_pass' %}" method="post" class="form">
+            {% csrf_token %}
+            <BR>
+            <BR>
+            <BR>
+            <center>
+                <div class=signuponepage>
+                    <div class=sign-up>
+                        <div class=signup-box>
+                            <div class="form-element email-address">
+                                <label id="email-address-label">
+                                    <strong>
+                                        Where would you like '{{ email }}@everydayrelay.com' to relayed to?
+                                    </strong>
+
+                                    <input type="hidden" name="everydayAddress" value="{{ email }}">
+                                    <input type="text" maxlength="35" autocomplete="off" name="personalAddress" id="personalAddress" value="" spellcheck="false" placeholder="Your current email address">
+                                </label>
+
+                            </div>
+                            <div class="form-element nextstep-button">
+                                {% buttons %}
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                       One more step {% bootstrap_icon "chevron-right" %}
+                                    </button>
+                                {% endbuttons %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </center>
+        </form>
+
+
+    </div>
+{% endblock %}

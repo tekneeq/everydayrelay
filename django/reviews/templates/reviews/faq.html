@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h3> - What is Email Relay?</h3>
+    <p>An email is sent to <em>address A</em> but... <em>address B</em> receives the email! --- How? The email was <b><em>relayed</em></b> to address B.</p>
+
+    <p>If you used craigslist before, you may be familiar with two-way relay mailing system [<a href="https://www.craigslist.org/about/help/email-relay">Craiglist Email Relay</a>]</p> 
+
+    <p>This is similiar to that idea!</p>
+
+    <BR>
+
+    <h3> - Email Relay Demo </h3>
+    <center>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/A6bFKdd_1JU" frameborder="0" allowfullscreen></iframe>
+    </center>
+    <BR>
+
+
+    <!--
+    <p>Here is one example of email relay:</p>
+    <img src="{% static 'reviews/everydayrelay uc2.png' %}">
+    --!>
+
+</div>
+
+
+{% endblock %}
+
