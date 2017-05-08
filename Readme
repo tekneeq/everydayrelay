@@ -7,8 +7,17 @@
 
 daemon logs in /home/logs/
 
+
+==
+development
+    cd /home/public
+    source env/bin/activate
+
+==
 ==
 front-end
 
 back-end
+    /home/public/run-django.sh
+    /home/public/run-redis.sh
 ===
