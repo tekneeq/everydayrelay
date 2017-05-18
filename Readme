@@ -7,13 +7,15 @@
 
 daemon logs in /home/logs/
 
+Project tracking at:
+https://tree.taiga.io/project/tekneeq-everydayrelay/
 
 ==
 development
     cd /home/public
     source env/bin/activate
 
-==
+
 ==
 front-end
 
@@ -21,3 +23,4 @@ back-end
     /home/public/run-django.sh
     /home/public/run-redis.sh
 ===
+
