@@ -1,26 +1,34 @@
-1. redis check
-- python redis-test/check-redis.py
-
-2. email check
-- python redis-test/check-email.py
-
-
-daemon logs in /home/logs/
 
 Project tracking at:
 https://tree.taiga.io/project/tekneeq-everydayrelay/
 
-==
-development
+=== Help ===
+    redis check
+        python redis-test/check-redis.py
+    
+    email check
+        python redis-test/check-email.py
+    
+    daemon logs in /home/logs/
+
+
+=== Development workflow ===
     cd /home/public
     source env/bin/activate
 
 
-==
-front-end
-
-back-end
-    /home/public/run-django.sh
-    /home/public/run-redis.sh
-===
+=== Architecture Overview ===
+    front-end
+        django/mysite/reviews/view.py
+    
+    back-end
+        daemons:
+            /home/public/run-django.sh
+            /home/public/run-redis.sh
+            
+        relay-email
+            quickstart.py
+                - parses emails stored in everydayrelay@gmail.com
+                - then, relay the email to destination email address
+        
 
