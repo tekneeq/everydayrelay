@@ -180,12 +180,29 @@ def send_email(me='', to=[], cc=[], bcc=[], subject='', message=''):
         print "cant send email %s" % err
         return False
 
+def remove_reply(lines):
+    last_reply_linenum = None
+    if len(lines) > 1:
+        if '>' in lines[-2]:
+            found_x = False 
+            last_reply_linenum = None
+            for i, line in enumerate(reversed(lines)):
+                if found_x == False and '>' in line:
+                    found_x = True
+                elif found_x == True and '>' not in line:
+                    last_reply_linenum = i
+                    break
+            if last_reply_linenum:
+                last_reply_linenum += 3
+
+    if last_reply_linenum:
+        last_reply_linenum = len(lines) - last_reply_linenum
+        lines = lines[:last_reply_linenum]
+
+    return '\n'.join(lines)
+    
 ################START################################
 def main():
-    """Shows basic usage of the Gmail API.
-    Creates a Gmail API service object and outputs a list of label names
-    of the user's Gmail account.
-    """
     print "starting main()"
     # 1. INIT
     credentials = get_credentials()
@@ -209,27 +226,11 @@ def main():
 
         # REMOVE REPLIES PART OF MESSAGE
         lines = body.split('\n')
-        last_reply_linenum = None
-        if len(lines) > 1:
-            if '>' in lines[-2]:
-                found_x = False 
-                last_reply_linenum = None
-                for i, line in enumerate(reversed(lines)):
-                    if found_x == False and '>' in line:
-                        found_x = True
-                    elif found_x == True and '>' not in line:
-                        last_reply_linenum = i
-                        break
-
-                if last_reply_linenum:
-                    last_reply_linenum += 3
-        if last_reply_linenum:
-            last_reply_linenum = len(lines) - last_reply_linenum
-            lines = lines[:last_reply_linenum]
-        body = '\n'.join(lines)
-        print body
+        body = remove_reply(lines)
+        #print body
         # END REMOVE REPLIES OF MESSAGE
-            
+
+        # Parse out to_email, from_email, subject form the email
         to_email = ''
         from_email = ''
         subject = ''
@@ -250,13 +251,19 @@ def main():
                             if len(possible_to) > 0:
                                 to_email = possible_to[0][1:-1]
         except Exception, msg:
-            print msg
+            print "Error: %s" % msg
+            
+        print "to: %s\n\tfrom: %s\n\tsubject: %s" % (to_email, from_email, subject)
 
         if not to_email or not from_email:
             print "cant parse from/to emails... deleting"
             DeleteMessage(service, 'me', id)
             continue
 
+
+        return
+
+        # REDIS
         # Lets see if we have enough credits
         username = r.hget('uemap', to_email)
         user_cre = r.hget('ucredits', username)
