@@ -5,29 +5,44 @@ https://tree.taiga.io/project/tekneeq-everydayrelay/
 === Help ===
     redis check
         python redis-test/check-redis.py
-    
     email check
         python redis-test/check-email.py
-    
     daemon logs in /home/logs/
-
 
 === Development workflow ===
     cd /home/public
     source env/bin/activate
 
+=== User Workflow ===
+    1. choose <you>@everydayrelay.com
+        *this is the username
+        *PREMIUM on username
+            *as default, you have to have chars and numbers
+            *more premium on 3 letters or repeated chars
+    2. provide <your>@<email>.com
+        *emails sent to (1) will be relay to (2)
+        *this email have to be verified
 
 === Architecture Overview ===
     front-end
-        django/mysite/reviews/view.py
-    
+        django/mysite
+            'allauth',
+            'allauth.account.auth_backends.AuthenticationBackend',
+            url(r'^accounts/', include('allauth.urls')),
+        django/reviews
+            view.py
+                home => reviews/templates/reviews/home.html (1)
+                get_relay_email => reviews/home_next_relay.html (2)
+                get_relay_pass => reviews/home_next.html (3)
+                account_signup (4)
+
     back-end
         daemons:
             /home/public/run-django.sh
             /home/public/run-redis.sh
-            
         relay-email
             quickstart.py
+                - PREMIUM: on how fast to relay
                 - parses emails stored in everydayrelay@gmail.com
                 - then, relay the email to destination email address
         
