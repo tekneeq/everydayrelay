@@ -29,12 +29,24 @@ https://tree.taiga.io/project/tekneeq-everydayrelay/
             'allauth',
             'allauth.account.auth_backends.AuthenticationBackend',
             url(r'^accounts/', include('allauth.urls')),
+            /home/public/env/lib/python2.7/site-packages/allauth/templates/account/login.html
+                http://django-allauth.readthedocs.io/en/stable/overview.html
+                https://github.com/pennersr/django-allauth
+                http://stackoverflow.com/questions/11554551/extending-django-user-model-with-django-allauth
+                    E-mail address management (multiple e-mail addresses, setting a primary)
+                    Password forgotten flow
+                    E-mail address verification flow
+                    Supports multiple authentication schemes (e.g. login by user name, or by e-mail), 
+                        as well as multiple strategies for account verification 
+                        (ranging from none to e-mail verification).
         django/reviews
             view.py
-                home => reviews/templates/reviews/home.html (1)
-                get_relay_email => reviews/home_next_relay.html (2)
-                get_relay_pass => reviews/home_next.html (3)
+                view.home => reviews/templates/reviews/home.html (1)
+                view.get_relay_email => reviews/home_next_relay.html (2)
+                view.get_relay_pass => reviews/home_next.html (3)
                 account_signup (4)
+                views.user_review_list => user_review_list.html (5)
+                
 
     back-end
         daemons:
