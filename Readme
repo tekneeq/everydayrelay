@@ -24,6 +24,18 @@ https://tree.taiga.io/project/tekneeq-everydayrelay/
         *this email have to be verified
 
 === Architecture Overview ===
+    files of interest
+        django/reviews/templates/reviews
+            home.html
+            home_next_relay.html
+            home_next.html
+            user_review_list.html
+        django/reviews
+            views.py
+            models.py
+            forms.py
+            urls.py
+
     front-end
         django/mysite
             'allauth',
