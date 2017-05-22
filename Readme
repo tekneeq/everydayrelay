@@ -2,6 +2,11 @@
 Project tracking at:
 https://tree.taiga.io/project/tekneeq-everydayrelay/
 
+=== Useful Commands ===
+python manage.py migrate
+python manage.py makemigrations reviews
+
+
 === Help ===
     redis check
         python redis-test/check-redis.py
@@ -64,6 +69,18 @@ https://tree.taiga.io/project/tekneeq-everydayrelay/
         daemons:
             /home/public/run-django.sh
             /home/public/run-redis.sh
+            
+        redis:
+            'ucredits':
+                username: credits <int>
+                
+        model:
+            User
+            Address, RelayAddress
+            addrs = Address.objects.filter(user_name=username)
+            for addr in addrs:
+                relay_addrs = RelayAddress.objects.filter(user_email=addr)
+            
         relay-email
             quickstart.py
                 - PREMIUM: on how fast to relay

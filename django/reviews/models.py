@@ -8,6 +8,7 @@ from django.db.models.signals import post_save
 from django.db import models
 import numpy as np
 import redis
+import datetime
 
 class Wine(models.Model):
     name = models.CharField(max_length=200)
@@ -18,7 +19,6 @@ class Wine(models.Model):
 
     def __unicode__(self):
         return self.name
-
 
 class Review(models.Model):
     RATING_CHOICES = (
@@ -71,6 +71,33 @@ def create_user_profile(sender, instance, created, **kwargs):
         u_p.email_limit = 1
         u_p.relay_limit = 2
         u_p.save()
+
+        address = Address()
+        address.addr = instance.username
+        address.user_name = instance.username
+        address.pub_date = datetime.datetime.now()
+        address.save() 
+
+        relay = RelayAddress()
+        relay.user_email = address
+        relay.relay_email = instance.email
+        relay.user_name = instance.username
+        relay.pub_date = datetime.datetime.now()
+        relay.save() 
+
+        '''
+        review = Review()
+        review.wine = wine
+        review.user_name = user_name
+        review.rating = rating
+        review.comment = comment
+        review.pub_date = datetime.datetime.now()
+        review.save()
+
+        addrs = Address.objects.filter(user_name=username)
+        for addr in addrs:
+            relay_addrs = RelayAddress.objects.filter(user_email=addr)
+        '''
 
         default_credit = 100
         r = get_redis_connection()
