@@ -1,0 +1,34 @@
+
+workflow:
+
+1. User creates an email address with everydayrelay.com
+    * username@everydayrelay.com (source)
+2. User specifies a destination email
+    * any email sent to source -> destination
+
+preminum features:
+    * N number of destination + N number of source
+    * flush email
+        * on demand
+        * at certain time
+        * selected emails to relay / keep for X time
+    * metrics
+        * count by:
+            * by sender
+            * by time
+    * one-way by default, two-way
+        * One-way
+            * for each source in sorList
+                * get destination for source
+                * email the content of source to destination
+
+        * Two-way
+            * parse source to destination
+            * create a tmp @everydayrelay for the source
+            * relay email to destination as tmp
+            * destination replies back to tmp (@everydayrelay)
+            * relays back to source from tmp as destination
+
+
+
+    
