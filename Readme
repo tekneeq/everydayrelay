@@ -2,10 +2,31 @@
 Project tracking at:
 https://tree.taiga.io/project/tekneeq-everydayrelay/
 
-=== Useful Commands ===
-python manage.py migrate
-python manage.py makemigrations reviews
+last changes:
+    view.py
 
+TODO:
+    frontend
+        *
+    backend
+        * get quickstart.py to work
+        * get replies to work
+    metrics
+        creation
+            * how many users signed up
+                per day
+                per week
+                per month
+                per year
+        count
+            * RelayAddress
+                count, avg relayed time
+                    per day
+                    per week
+                    per month
+                    per year
+    feature
+        * manual flush of emails
 
 === Help ===
     redis check
@@ -69,22 +90,29 @@ python manage.py makemigrations reviews
         daemons:
             /home/public/run-django.sh
             /home/public/run-redis.sh
-            
-        redis:
-            'ucredits':
-                username: credits <int>
-                
-        model:
-            User
-            Address, RelayAddress
-            addrs = Address.objects.filter(user_name=username)
-            for addr in addrs:
-                relay_addrs = RelayAddress.objects.filter(user_email=addr)
-            
         relay-email
             quickstart.py
                 - PREMIUM: on how fast to relay
                 - parses emails stored in everydayrelay@gmail.com
-                - then, relay the email to destination email address
-        
+                - then, relay the email to destination email address 
+        redis (https://redis-py.readthedocs.io/en/latest/)
+            ucredits
+                user: credits <int>
+            remap:
+                relay email : personal email
+
+        model
+            Address
+                addr = models.CharField(max_length=100, verbose_name="Type your email address")
+                user_name = models.CharField(max_length=100)
+                pub_date = models.DateTimeField('date published')
+            RelayAddress
+                user_email = models.ForeignKey(Address)
+                relay_email = models.CharField(max_length=100, verbose_name="Type your email here...")
+                user_name = models.CharField(max_length=100)
+                pub_date = models.DateTimeField('date published')
+            UserProfile
+                user = models.OneToOneField(User)
+                email_limit = models.CharField(max_length=140)  
+                relay_limit = models.CharField(max_length=140, default=2) 
 
